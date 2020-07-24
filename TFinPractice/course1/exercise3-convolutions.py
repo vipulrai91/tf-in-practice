@@ -34,9 +34,6 @@ model = tf.keras.models.Sequential([
 ])
 
 model.compile(optimizer='adam', loss=tf.losses.sparse_categorical_crossentropy, metrics=['accuracy'])
-
 model.fit(training_images, training_labels, epochs=10, callbacks=[cb])
-
 test_loss = model.evaluate(test_images, test_labels)
-
 print(f"The loss for test data is {test_loss}")
