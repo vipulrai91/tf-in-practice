@@ -2,6 +2,7 @@ import os
 import tensorflow as tf
 from tensorflow.keras.optimizers import RMSprop
 from tensorflow.keras.losses import binary_crossentropy
+import matplotlib.pyplot as plt
 
 base_dir = "/Users/vipul/PycharmProjects/TFExams/TFinPractice/data/cats_and_dogs_filtered/cats_and_dogs_filtered"
 
@@ -35,7 +36,7 @@ print('total validation dog images :', len(os.listdir(validation_dogs_dir)))
 
 
 # import matplotlib.image as mpimg
-# import matplotlib.pyplot as plt
+
 #
 # # Parameters for our graph; we'll output images in a 4x4 configuration
 # nrows = 4
@@ -102,6 +103,28 @@ validation_generator = valid_datagen.flow_from_directory(validation_dir,
 history = model.fit(train_generator,
                     validation_data=validation_generator,
                     steps_per_epoch=100,
-                    epochs=15,
+                    epochs=2,
                     validation_steps=50,
                     verbose=2)
+
+acc = history.history['accuracy']
+val_acc = history.history['val_accuracy']
+loss = history.history['loss']
+val_loss = history.history['val_loss']
+
+epochs = range(len(acc))
+
+# ------------------------------------------------
+# Plot training and validation accuracy per epoch
+# ------------------------------------------------
+plt.plot(epochs, acc)
+plt.plot(epochs, val_acc)
+plt.title('Training and validation accuracy')
+plt.figure()
+
+# ------------------------------------------------
+# Plot training and validation loss per epoch
+# ------------------------------------------------
+plt.plot(epochs, loss)
+plt.plot(epochs, val_loss)
+plt.title('Training and validation loss')
